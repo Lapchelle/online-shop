@@ -1,12 +1,15 @@
-﻿using System;
+﻿using OnlineShop.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.Entities
-{
-    public class User
+{   /// <summary>
+    /// Пользователь
+    /// </summary>
+    public class UserEntity
     {
         public Guid Id { get; set; }
 
@@ -18,6 +21,12 @@ namespace Domain.Entities
 
         public string Password { get; set; }
 
-        public int RoleId { get; set; }
+        public Guid RoleId { get; set; }
+
+        public virtual RolesEntity Roles { get; set; }
+
+        public Guid BasketId { get; set; }
+
+        public virtual BasketEntity Basket { get; set; }
     }
 }

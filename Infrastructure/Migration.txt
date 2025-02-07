@@ -1,0 +1,6 @@
+﻿Add-Migration -Context OnlineShopDbContextPostgresql -StartupProject OnlineShop.API -Project OnlineShop.Infrastructure -o Persistence\Providers\Postgresql\Migrations\ OnlineShopDbContextPostgresql_v0.0.3
+
+Update-Database -Context OnlineShopDbContextPostgresql -StartupProject OnlineShop.API -Project OnlineShop.Infrastructure -Migration 20250207122741_OnlineShopDbContextPostgresql_v0.0.3
+
+Remove-Migration -Context OnlineShopDbContextPostgresql -StartupProject OnlineShop.API -Project OnlineShop.Infrastructure '20250205113136_OnlineShopDbContextPostgresql_v0.0.1'
+ 
