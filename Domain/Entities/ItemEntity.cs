@@ -18,7 +18,11 @@ namespace Domain.Entities
 
         public Guid TypeId { get; set; }
 
+        public Guid BasketId { get; set; }
+
         public virtual TypeEntity Types { get; set; }
+
+        public virtual BasketEntity Basket { get; set; }
 
     }
 }

@@ -18,7 +18,6 @@ namespace Infrastructure
         public DbSet<BasketEntity> Basket { get; set; }
         public DbSet<ItemEntity> Item { get; set; }
         public DbSet<UserEntity> User { get; set; }
-        public DbSet<ValueEntity> Value { get; set; }
         public DbSet<TypeEntity> Type { get; set; }
         public DbSet<RolesEntity> Roles { get; set; }
 

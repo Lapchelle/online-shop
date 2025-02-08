@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using OnlineShop.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,9 @@ namespace Application.Common.Interfaces
 
         public DbSet<UserEntity> User { get; set; }
 
-        public DbSet<ValueEntity> Value { get; set; }
+        public DbSet<RolesEntity> Roles { get; set; }
+
+        public DbSet<TypeEntity> Type { get; set; }
 
         void Migrate();
 

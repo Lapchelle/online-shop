@@ -14,6 +14,6 @@ namespace Domain.Entities
 
         public int Count { get; set; }
 
-        public virtual ICollection<ValueEntity> Values { get; set; }
+        public virtual ICollection<ItemEntity> Items { get; set; }
     }
 }

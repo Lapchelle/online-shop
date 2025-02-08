@@ -24,6 +24,12 @@ namespace Infrastructure.Configurations
             builder.Property(t => t.Rating).HasColumnName("Rating");
             builder.Property(t => t.Image).HasColumnName("Image");
             builder.Property(t => t.TypeId).HasColumnName("TypeId");
+            builder.Property(t => t.BasketId).HasColumnName("BasketId");
+
+            builder.HasOne(t => t.Basket)
+                .WithMany(t => t.Items)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName($"FK_{nameof(BasketEntity)}_{nameof(ItemEntity)}");
         }
     }
 }
