@@ -59,7 +59,12 @@ namespace Infrastructure
             Database.Migrate();
         }
 
-        public void SaveChangesAsync()
+        public void SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            SaveChangesAsync();
+        }
+
+        void IOnlineShopContext.SaveChanges()
         {
             SaveChanges();
         }

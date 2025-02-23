@@ -25,7 +25,7 @@ namespace Application.Common.Interfaces
         public DbSet<TypeEntity> Type { get; set; }
 
         void Migrate();
-
-        void SaveChangesAsync();
+        void SaveChanges();
+        void SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

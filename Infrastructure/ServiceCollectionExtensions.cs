@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OnlineShop.Application;
 using OnlineShop.Infrastructure.Persistence.Providers.Postgresql;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,12 @@ namespace Infrastructure
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
 
-            //services.AddSingleton<IFileStorageForStampMaker, FileStorageForStampMaker>();
 
             services.AddDbContext<OnlineShopDbContextPostgresql>(options => options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IOnlineShopContext>(provider => provider.GetService<OnlineShopDbContextPostgresql>());
 
-            //services.AddApplication();
+            services.AddApplication();
 
             return services;
         }
