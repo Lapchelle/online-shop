@@ -16,7 +16,7 @@ namespace Infrastructure.Configurations
             builder.ToTable("Basket");
 
             builder.HasKey(t => t.Id);
-            builder.Property(t => t.Count).HasColumnName("Count").HasDefaultValue(0);
+            builder.Property(t => t.Count).HasColumnName("Count").HasDefaultValue(0).HasComment("Количество");
         }
     }
 }
