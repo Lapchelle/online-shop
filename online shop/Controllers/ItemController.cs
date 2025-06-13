@@ -23,7 +23,7 @@ namespace online_shop.Controllers
         [Produces(MediaTypeNames.Application.Json)]
         public async Task<IActionResult> SelectItems([FromBody] ItemModel request)
         {
-            await _mediator.Send(new SelectItemCommand(request.UserId, request.ItemId));
+            await _mediator.Send(new SelectItemCommand(request.ItemId, request.UserId));
 
             return Ok();
         }

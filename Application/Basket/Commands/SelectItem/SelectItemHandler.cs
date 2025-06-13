@@ -54,7 +54,7 @@ namespace OnlineShop.Application.Basket.Commands.SelectItem
         public async Task<Guid> GetBasketFromUser(Guid id)
         {
             var user = _context.User.Where(t => t.Id == id).FirstOrDefault();
-
+              
             return user.BasketId;
         }
     }

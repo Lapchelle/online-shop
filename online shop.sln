@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Application", "Application\OnlineShop.Application.csproj", "{EC2B1509-760F-422F-9824-CF708FA7EB1D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7704068C-1FDE-4482-85BE-A08BE6A81968}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6BF8FFE3-1BF7-4BD2-9811-8404F8017324} = {7704068C-1FDE-4482-85BE-A08BE6A81968}
+		{F1F9ABF5-9ACA-4B22-9799-20EDC299E853} = {7704068C-1FDE-4482-85BE-A08BE6A81968}
+		{EC7624F6-3A08-4329-8681-75EBC3ACB5BA} = {7704068C-1FDE-4482-85BE-A08BE6A81968}
+		{EC2B1509-760F-422F-9824-CF708FA7EB1D} = {7704068C-1FDE-4482-85BE-A08BE6A81968}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEB874A7-33CE-45C1-A6D9-017717025176}

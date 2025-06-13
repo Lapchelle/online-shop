@@ -29,8 +29,18 @@ namespace OnlineShop.Application.Basket.Queries.GetItemsByType
         public async Task<GetItemsByTypeResponse> Handle(GetItemsByTypeQuery request, CancellationToken cancellationToken)
         {   
             try
-            {
+            {   
+                if (request.TypeId == null)
+                {
+                    throw new ArgumentNullException(nameof(request.TypeId));
+                }
+
                 var items = _context.Item.Where(i => i.TypeId == request.TypeId).ToList();
+
+                if (!items.Any())
+                {
+                    throw new ArgumentNullException(nameof(items));
+                }
 
                 var itemDtos = new List<ItemsDto>();
 
