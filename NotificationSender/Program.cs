@@ -1,70 +1,33 @@
-using Application.Common.Interfaces;
-using Infrastructure;
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using NotificationSender.Application;
-using OnlineShop.Application.Basket.Commands.SelectItem;
-using OnlineShop.Application.Basket.Queries.GetItemsByType;
-using Serilog;
-using System.Reflection;
-using Telegram.Bot;
 using Telegram.Bot.Polling;
-using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot;
+using NotificationSender.Application;
+using Telegram.Bot.Types;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Добавляем сервисы
 builder.Services.AddControllers();
-builder.Services.AddShopInfrastructure(builder.Configuration);
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddLogging();
-builder.Services.AddSingleton(typeof(Microsoft.Extensions.Logging.ILogger), typeof(Logger<Program>));
 
+// Регистрируем Telegram бота и обработчики
 builder.Services.AddSingleton<ITelegramBotClient>(_ =>
     new TelegramBotClient("8192162781:AAF1tzdsmeqc96-EmQkzC7OUsDrleBVega4"));
 builder.Services.AddSingleton<ITelegramBotService, TelegramBotHandlers>();
 
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Настраиваем конвейер HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-//using var scope = app.Services.CreateScope();
-//await using var dbContext = scope.ServiceProvider.GetRequiredService<ShopContext>();
-//await dbContext.Database.EnsureCreatedAsync();
-
-
-
-//static void MigrateDatabase(IHost host)
-//{
-//    using var scope = host.Services.CreateScope();
-//    var services = scope.ServiceProvider;
-
-//    try
-//    {
-//        var stampMakerContext = services.GetRequiredService<IOnlineShopContext>();
-//        stampMakerContext.Migrate();
-//    }
-//    catch (Exception ex)
-//    {
-//        Log.Fatal(ex, "An error occurred while migrating or initializing the database.");
-//        throw;
-//    }
-//}
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 // Запускаем Telegram бота

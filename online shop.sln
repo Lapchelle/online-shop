@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Application", "A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7704068C-1FDE-4482-85BE-A08BE6A81968}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationSender.API", "NotificationSender\NotificationSender.API.csproj", "{507810C3-CEFB-4E54-8DE0-987FB09B9E3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notification", "Notification", "{BA526038-27CB-470B-9F5B-F5865DE56BDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationSender.Application", "NotificationSender.Application\NotificationSender.Application.csproj", "{EEB3A553-0E3F-4C32-A917-0550EE984B0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +41,14 @@ Global
 		{EC2B1509-760F-422F-9824-CF708FA7EB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC2B1509-760F-422F-9824-CF708FA7EB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC2B1509-760F-422F-9824-CF708FA7EB1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{507810C3-CEFB-4E54-8DE0-987FB09B9E3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{507810C3-CEFB-4E54-8DE0-987FB09B9E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{507810C3-CEFB-4E54-8DE0-987FB09B9E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{507810C3-CEFB-4E54-8DE0-987FB09B9E3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB3A553-0E3F-4C32-A917-0550EE984B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB3A553-0E3F-4C32-A917-0550EE984B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB3A553-0E3F-4C32-A917-0550EE984B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB3A553-0E3F-4C32-A917-0550EE984B0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +58,8 @@ Global
 		{F1F9ABF5-9ACA-4B22-9799-20EDC299E853} = {7704068C-1FDE-4482-85BE-A08BE6A81968}
 		{EC7624F6-3A08-4329-8681-75EBC3ACB5BA} = {7704068C-1FDE-4482-85BE-A08BE6A81968}
 		{EC2B1509-760F-422F-9824-CF708FA7EB1D} = {7704068C-1FDE-4482-85BE-A08BE6A81968}
+		{507810C3-CEFB-4E54-8DE0-987FB09B9E3D} = {BA526038-27CB-470B-9F5B-F5865DE56BDD}
+		{EEB3A553-0E3F-4C32-A917-0550EE984B0A} = {BA526038-27CB-470B-9F5B-F5865DE56BDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEB874A7-33CE-45C1-A6D9-017717025176}

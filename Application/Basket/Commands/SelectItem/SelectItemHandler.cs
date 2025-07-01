@@ -3,6 +3,7 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using NotificationSender.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +17,14 @@ namespace OnlineShop.Application.Basket.Commands.SelectItem
         public IMediator _mediator;
         public IOnlineShopContext _context;
         public ILogger _logger;
+        public ITelegramBotService _botService;
 
-        public SelectItemHandler(IMediator mediator, IOnlineShopContext context, ILogger logger)
+        public SelectItemHandler(IMediator mediator, IOnlineShopContext context, ILogger logger, ITelegramBotService botService)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _botService = botService;
         }
 
         public async Task Handle(SelectItemCommand request, CancellationToken cancellationToken)
@@ -43,6 +46,10 @@ namespace OnlineShop.Application.Basket.Commands.SelectItem
                 basket.Count++;
 
                 _context.SaveChanges();
+
+                var message = $"🛒 Выбран товар: {item.Name}\nДата: {DateTime.Now:g}";
+
+                await _botService.SendNotificationAsync( message);
             }
             catch (Exception ex) 
             {
