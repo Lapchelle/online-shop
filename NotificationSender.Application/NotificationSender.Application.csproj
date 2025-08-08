@@ -11,4 +11,9 @@
 		<PackageReference Include="Telegram.Bot" Version="18.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Application\OnlineShop.Application.csproj" />
+	  <ProjectReference Include="..\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj" />
+	</ItemGroup>
+
 </Project>

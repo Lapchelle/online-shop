@@ -16,7 +16,10 @@ namespace OnlineShop.Application.DTOs
             TypeName = typeName;
         }
 
-       
+        public ItemsDto(string name)
+        {
+            Name = name;
+        }
 
         public string Name { get; set; }
 

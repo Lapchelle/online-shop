@@ -15,13 +15,15 @@ namespace NotificationSender.Application
     public class TelegramBotHandlers : ITelegramBotService
     {
         private readonly ILogger<TelegramBotHandlers> _logger;
+        private readonly ITelegramBotClient _telegramBotClient;
 
-        public TelegramBotHandlers(ILogger<TelegramBotHandlers> logger)
+        public TelegramBotHandlers(ILogger<TelegramBotHandlers> logger, ITelegramBotClient telegramBotClient)
         {
             _logger = logger;
+            _telegramBotClient = telegramBotClient;
         }
 
-        
+
 
         public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
@@ -83,6 +85,22 @@ namespace NotificationSender.Application
 
             _logger.LogError(errorMessage);
             return Task.CompletedTask;
+        }
+
+        public async Task SendNotificationAsync(string message)
+        {
+            try
+            {
+                await _telegramBotClient.SendTextMessageAsync(
+                    chatId: "1088615079",
+                    text: message,
+                    cancellationToken: new CancellationTokenSource(5000).Token);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка отправки уведомления в Telegram");
+                // Логика повторной отправки
+            }
         }
     }
 }

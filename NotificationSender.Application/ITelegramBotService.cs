@@ -12,5 +12,6 @@ namespace NotificationSender.Application
     {
         Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken);
         Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken);
+        Task SendNotificationAsync(string message);
     }
 }

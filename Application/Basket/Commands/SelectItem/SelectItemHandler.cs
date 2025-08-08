@@ -3,7 +3,8 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using NotificationSender.Application;
+using OnlineShop.Application.DTOs;
+using OnlineShop.Application.RabbitMQSender;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,18 @@ using System.Threading.Tasks;
 namespace OnlineShop.Application.Basket.Commands.SelectItem
 {
     public class SelectItemHandler : IRequestHandler<SelectItemCommand>
-    {   
-        public IMediator _mediator;
-        public IOnlineShopContext _context;
-        public ILogger _logger;
-        public ITelegramBotService _botService;
+    {
+        private readonly IMediator _mediator;
+        private readonly IOnlineShopContext _context;
+        private readonly ILogger _logger;
+        private readonly RabbitMQCartMessageSender _publisher;
 
-        public SelectItemHandler(IMediator mediator, IOnlineShopContext context, ILogger logger, ITelegramBotService botService)
+        public SelectItemHandler(IMediator mediator, IOnlineShopContext context, ILogger logger, RabbitMQCartMessageSender publisher)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _botService = botService;
+            _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
         }
 
         public async Task Handle(SelectItemCommand request, CancellationToken cancellationToken)
@@ -47,9 +48,10 @@ namespace OnlineShop.Application.Basket.Commands.SelectItem
 
                 _context.SaveChanges();
 
-                var message = $"🛒 Выбран товар: {item.Name}\nДата: {DateTime.Now:g}";
+                var itemForMessage = new ItemsDto(item.Name);
 
-                await _botService.SendNotificationAsync( message);
+                _publisher.PublishNotification(item.Name);
+;
             }
             catch (Exception ex) 
             {

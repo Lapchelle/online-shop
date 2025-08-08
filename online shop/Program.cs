@@ -3,9 +3,9 @@ using Infrastructure;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using NotificationSender.Application;
 using OnlineShop.Application.Basket.Commands.SelectItem;
 using OnlineShop.Application.Basket.Queries.GetItemsByType;
+using OnlineShop.Application.RabbitMQSender;
 using Serilog;
 using System.Reflection;
 using Telegram.Bot;
@@ -24,10 +24,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddLogging();
 builder.Services.AddSingleton(typeof(Microsoft.Extensions.Logging.ILogger), typeof(Logger<Program>));
+builder.Services.AddSingleton<RabbitMQCartMessageSender>(sp =>
+    new RabbitMQCartMessageSender("localhost"));
 
-builder.Services.AddSingleton<ITelegramBotClient>(_ =>
-    new TelegramBotClient("8192162781:AAF1tzdsmeqc96-EmQkzC7OUsDrleBVega4"));
-builder.Services.AddSingleton<ITelegramBotService, TelegramBotHandlers>();
 
 var app = builder.Build();
 
@@ -67,36 +66,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Запускаем Telegram бота
-var botClient = app.Services.GetRequiredService<ITelegramBotClient>();
-var botHandlerUpdate = app.Services.GetRequiredService<ITelegramBotService>();
-var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
-
-
-
-var receiverOptions = new ReceiverOptions
-{
-    AllowedUpdates = Array.Empty<UpdateType>(),
-    ThrowPendingUpdates = true,
-};
-
-botClient.StartReceiving(
-    updateHandler: HandleUpdateAsync,
-    pollingErrorHandler: HandleErrorAsync,
-    receiverOptions: receiverOptions,
-    cancellationToken: lifetime.ApplicationStopping
-);
-
-// Локальные функции-адаптеры
-async Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken ct)
-    => await botHandlerUpdate.HandleUpdateAsync(client, update, ct);
-
-async Task HandleErrorAsync(ITelegramBotClient client, Exception error, CancellationToken ct)
-    => await botHandlerUpdate.HandleErrorAsync(client, error, ct);
-
-// Получаем информацию о боте
-var me = await botClient.GetMeAsync();
-
-app.Logger.LogInformation($"Telegram bot {me.FirstName} запущен");
 
 app.Run();

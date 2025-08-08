@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ITelegramBotClient>(_ =>
     new TelegramBotClient("8192162781:AAF1tzdsmeqc96-EmQkzC7OUsDrleBVega4"));
 builder.Services.AddSingleton<ITelegramBotService, TelegramBotHandlers>();
-
+builder.Services.AddHostedService<NotificationBackgroundService>();
 
 var app = builder.Build();
 
